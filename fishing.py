@@ -14,11 +14,11 @@ CONFIDENCE = 0.4
 
 print("Move your mouse to the top left corner of the desired region and press ENTER.")
 keyboard.wait('enter')
-x1, y1 = pyautogui.position()
+x1, y1 = position()
 
 print("Move your mouse to the bottom right corner of the desired region and press ENTER.")
 keyboard.wait('enter')
-x2, y2 = pyautogui.position()
+x2, y2 = position()
 
 REGION = (x1, y1, x2 - x1, y2 - y1)  # (x, y, width, height)
 
@@ -39,7 +39,7 @@ while not keyboard.is_pressed(STOP_KEY):
     ]
 
     for image, action in actions:
-        if pyautogui.locateOnScreen(image, region=REGION, confidence=CONFIDENCE) is not None:
+        if locateOnScreen(image, region=REGION, confidence=CONFIDENCE) is not None:
             if last_skill != action:
                 if action == 'waiting':
                     print(now, "-> Waiting for skill")
