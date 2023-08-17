@@ -30,11 +30,11 @@ while not keyboard.is_pressed(STOP_KEY):
 
     # Define a list of images and their associated actions
     actions = [
-        ('images/up.png', 'num8'),
-        ('images/left.png', 'num4'),
-        ('images/right.png', 'num6'),
-        ('images/pull.png', 'num2'),
-        ('images/release.png', 'num5'),
+        ('images/up.png', 'num 8'),
+        ('images/left.png', 'num 4'),
+        ('images/right.png', 'num 6'),
+        ('images/pull.png', 'num 2'),
+        ('images/release.png', 'num 5'),
         ('images/target.png', 'waiting')
     ]
 
