@@ -51,6 +51,7 @@ while not keyboard.is_pressed(STOP_KEY):
                     if action == 'up' or action == 'down':  # double press for these actions
                         keyboard.press_and_release(action)
                     print(now, f"-> Performed action: {action}")
+                    time.sleep(3)
                 last_skill = action
                 break
     else:
