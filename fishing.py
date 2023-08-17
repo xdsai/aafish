@@ -11,16 +11,19 @@ STOP_KEY = 'end'
 
 CONFIDENCE = 0.4
 
+hardcode = input("use hardcoded region? (y/n): ")
+if hardcode == 'n':
+    print("Move your mouse to the top left corner of the desired region and press ENTER.")
+    keyboard.wait('enter')
+    x1, y1 = position()
 
-print("Move your mouse to the top left corner of the desired region and press ENTER.")
-keyboard.wait('enter')
-x1, y1 = position()
+    print("Move your mouse to the bottom right corner of the desired region and press ENTER.")
+    keyboard.wait('enter')
+    x2, y2 = position()
 
-print("Move your mouse to the bottom right corner of the desired region and press ENTER.")
-keyboard.wait('enter')
-x2, y2 = position()
-
-REGION = (x1, y1, x2 - x1, y2 - y1)  # (x, y, width, height)
+    REGION = (x1, y1, x2 - x1, y2 - y1)  # (x, y, width, height)
+else:
+    REGION=(700, 0, 400, 150)
 
 print(f"Press {START_KEY} to start and hold {STOP_KEY} to close.")
 keyboard.wait(START_KEY)
