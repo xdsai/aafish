@@ -15,7 +15,7 @@ keyboard.wait(START_KEY)
 last_skill = None
 prev = time.time()
 while not keyboard.is_pressed(STOP_KEY):
-    now = datetime.now().time()
+    nowstamp= datetime.now().time()
 
     # Define a list of images and their associated actions
     actions = [
@@ -31,18 +31,18 @@ while not keyboard.is_pressed(STOP_KEY):
             now = time.time()
             if last_skill != action:
                 keyboard.press_and_release(action)
-                if action == 'up' or action == 'down':  # double press for these actions
+                if action == 'up' or action == 'down':
                     keyboard.press_and_release(action)
-                print(now, f"-> Performed action: {action}, image: {image[7:len(image)-4]}")
+                print(nowstamp, f"-> Performed action: {action}, image: {image[7:len(image)-4]}")
                 time.sleep(0.1)
                 last_skill = action
                 prev = now
                 break
             elif now - prev > 5 and last_skill == action:
                 keyboard.press_and_release(action)
-                if action == 'up' or action == 'down':  # double press for these actions
+                if action == 'up' or action == 'down':
                     keyboard.press_and_release(action)
-                print(now, f"-> Performed action: {action}, image: {image[7:len(image)-4]}")
+                print(nowstamp, f"-> Performed action: {action}, image: {image[7:len(image)-4]}")
                 time.sleep(0.1)
                 last_skill = action
                 prev = now
