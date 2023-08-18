@@ -30,7 +30,6 @@ while not keyboard.is_pressed(STOP_KEY):
         if conf is not None:
             now = time.time()
             if last_skill != action:
-                print(f"Now-prev is {round(now-prev, 3)}, last_skill is {last_skill}, action is {action}")
                 keyboard.press_and_release(action)
                 if action == 'up' or action == 'down':  # double press for these actions
                     keyboard.press_and_release(action)
@@ -40,7 +39,6 @@ while not keyboard.is_pressed(STOP_KEY):
                 prev = now
                 break
             elif now - prev > 5 and last_skill == action:
-                print(f"Now-prev is {round(now-prev, 3)}, last_skill is {last_skill}, action is {action}")
                 keyboard.press_and_release(action)
                 if action == 'up' or action == 'down':  # double press for these actions
                     keyboard.press_and_release(action)
