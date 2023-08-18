@@ -10,5 +10,5 @@ while True:
     print(f"Sleeping for {time_to_sleep} seconds")
     time.sleep(time_to_sleep)
     
-    keyboard.press('T')
-    keyboard.release('T')
+    keyboard.press('t')
+    keyboard.release('t')
