@@ -6,7 +6,7 @@ keyboard = Controller()
 
 while True:
     # Sleep for a random interval between 10 to 20 seconds
-    time_to_sleep = random.uniform(10, 20)
+    time_to_sleep = random.uniform(10, 55)
     print(f"Sleeping for {time_to_sleep} seconds")
     time.sleep(time_to_sleep)
     
