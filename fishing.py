@@ -7,8 +7,8 @@ from datetime import datetime
 START_KEY = '`'
 STOP_KEY = 'end'
 
-CONFIDENCE = 0.55
-REGION=(841, 66,67, 34)
+CONFIDENCE = 0.60
+REGION=(778,66,67,34)
 
 print(f"Press {START_KEY} to start and hold {STOP_KEY} to close.")
 keyboard.wait(START_KEY)
