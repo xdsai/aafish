@@ -29,16 +29,7 @@ while not keyboard.is_pressed(STOP_KEY):
         conf = locateOnScreen(image, grayscale=False, region=REGION, confidence=CONFIDENCE)
         if conf is not None:
             now = time.time()
-            if last_skill != action:
-                keyboard.press_and_release(action)
-                if action == 'up' or action == 'down':
-                    keyboard.press_and_release(action)
-                print(nowstamp, f"-> Performed action: {action}, image: {image[7:len(image)-4]}")
-                time.sleep(0.1)
-                last_skill = action
-                prev = now
-                break
-            elif now - prev > 5 and last_skill == action:
+            if (last_skill != action) or (now - prev > 5 and last_skill == action):
                 keyboard.press_and_release(action)
                 if action == 'up' or action == 'down':
                     keyboard.press_and_release(action)
