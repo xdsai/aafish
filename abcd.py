@@ -4,12 +4,54 @@ import keyboard
 from datetime import datetime
 import win32gui
 import win32con
+from screeninfo import get_monitors
+import cv2
+import numpy as np
+import mss
+
+def capture_region_with_offset(region):
+    x, y, width, height = region
+    with mss.mss() as sct:
+        monitor = {"top": y, "left": x, "width": width, "height": height}
+        screenshot = sct.grab(monitor)
+    return screenshot
+
+def find_image_location(main_image, template_image, method=cv2.TM_CCOEFF_NORMED):
+    main_image_gray = cv2.cvtColor(np.array(main_image), cv2.COLOR_BGR2GRAY)
+    template_image_gray = cv2.cvtColor(np.array(template_image), cv2.COLOR_BGR2GRAY)
+
+    result = cv2.matchTemplate(main_image_gray, template_image_gray, method)
+
+    min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
+
+    if method in [cv2.TM_SQDIFF, cv2.TM_SQDIFF_NORMED]:
+        top_left = min_loc
+    else:
+        top_left = max_loc
+
+    threshold = 0.6
+    if max_val > threshold:
+        return top_left
+    return None
+
+def get_monitor_offset():
+    monitors = get_monitors()
+    for i, monitor in enumerate(monitors):
+        print(f"Monitor {i+1}: {monitor.name}, Is primary: {monitor.is_primary}, Left: {monitor.x}")
+    
+    chosen_monitor = int(input("Choose the monitor you want to use (1/2/3/etc.): ")) - 1
+    chosen_monitor = monitors[chosen_monitor]
+    
+    return chosen_monitor.x 
+
+offset = get_monitor_offset()
+
+REGION = (offset + 778, 66, 67, 34)
+print(f"Region: {REGION}")
 
 def window_enum_handler(hwnd, resultList):
-    '''Pass to win32gui.EnumWindows() to generate list of window handle,
-    window text tuples.'''
     window_text = win32gui.GetWindowText(hwnd)
-    if "arche" in window_text.lower():  # substring check; make it case insensitive
+    if "arche" in window_text.lower():
         resultList.append((hwnd, window_text))
 
 windows = []
@@ -23,16 +65,9 @@ for hwnd, window_text in windows:
 chosen_window = int(input("Choose a window: "))
 hwnd = windows[chosen_window][0]
 
-    # Uncomment the line below to send a "W" key to each matching window
-    # win32gui.SendMessage(hwnd, win32con.WM_CHAR, ord('W'), 0)
-
-
-# Customizable Keybinds
 START_KEY = '`'
 STOP_KEY = 'end'
 
-CONFIDENCE = 0.60
-REGION=(778,66,67,34)
 
 print(f"Press {START_KEY} to start and hold {STOP_KEY} to close.")
 keyboard.wait(START_KEY)
@@ -42,7 +77,6 @@ while not keyboard.is_pressed(STOP_KEY):
 
     nowstamp= datetime.now().time()
 
-    # Define a list of images and their associated actions
     actions = [
         ('images/up_.png', win32con.VK_UP),
         ('images/left_.png', win32con.VK_LEFT),
@@ -50,10 +84,12 @@ while not keyboard.is_pressed(STOP_KEY):
         ('images/pull_.png', win32con.VK_DOWN),
         ('images/release_.png', win32con.VK_HOME),
     ]
-
+    screenshot = capture_region_with_offset(REGION)
     for image, action in actions:
-        conf = locateOnScreen(image, grayscale=False, region=REGION, confidence=CONFIDENCE)
-        if conf is not None:
+        template_image = cv2.imread(image)
+        point = find_image_location(screenshot, template_image)
+        
+        if point is not None:
             now = time.time()
             if (last_skill != action) or (now - prev > 5 and last_skill == action):
                 win32gui.SendMessage(hwnd, win32con.WM_KEYDOWN, action, 0)
@@ -66,4 +102,3 @@ while not keyboard.is_pressed(STOP_KEY):
                 last_skill = action
                 prev = now
                 break
-            
