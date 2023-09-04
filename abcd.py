@@ -29,7 +29,7 @@ def find_image_location(main_image, template_image, method=cv2.TM_CCOEFF_NORMED)
     else:
         top_left = max_loc
 
-    threshold = 0.6
+    threshold = 0.7
     if max_val > threshold:
         return top_left
     return None
