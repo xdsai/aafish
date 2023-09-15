@@ -8,6 +8,7 @@ from screeninfo import get_monitors
 import cv2
 import numpy as np
 import mss
+import json
 
 def capture_region_with_offset(region):
     x, y, width, height = region
@@ -46,8 +47,40 @@ def get_monitor_offset():
 
 offset = get_monitor_offset()
 
-REGION = (offset + 778, 66, 67, 34)
+with open("regions.json", "r") as f:
+    regions = json.load(f)
+
+for i, region in enumerate(regions):
+    print(f"{i}: {regions[str(i)][0]} {regions[str(i)][1:]}")
+print(f"{len(regions)}: Add new region")
+
+region_query = input(f"Choose a region (0/1/2/etc.) or add a new one {len(regions)}: ")
+
+if region_query == str(len(regions)):
+    print("Move your mouse to the top left corner of the desired region and press ENTER.")
+    keyboard.wait('end')
+    x1, y1 = position()
+
+    print("Move your mouse to the bottom right corner of the desired region and press ENTER.")
+    keyboard.wait('end')
+    x2, y2 = position()
+
+    REGION = (x1, y1, x2 - x1, y2 - y1)
+    print(f"Region: {REGION}")
+    save_query = input(f"Save this region for future use? (y/n): ")
+    if save_query == 'y':
+        name_query = input("Enter a name for this region: ")
+        regions[str(len(regions))] = [name_query, list(REGION)]
+        with open("regions.json", "w") as f:
+            json.dump(regions, f)
+    else:
+        print("Region not saved.")
+else:
+    REGION = tuple(regions[str(region_query)][1:])
+
 print(f"Region: {REGION}")
+
+REGION = (REGION[0] + offset, REGION[1], REGION[2], REGION[3])
 
 def window_enum_handler(hwnd, resultList):
     window_text = win32gui.GetWindowText(hwnd)
