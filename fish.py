@@ -54,7 +54,7 @@ for i, region in enumerate(regions):
     print(f"{i}: {regions[str(i)][0]} {regions[str(i)][1:]}")
 print(f"{len(regions)}: Add new region")
 
-region_query = input(f"Choose a region (0/1/2/etc.) or add a new one {len(regions)}: ")
+region_query = input(f"Choose a region (0/1/2/etc.) or add a new one - {len(regions)}: ")
 
 if region_query == str(len(regions)):
     print("Move your mouse to the top left corner of the desired region and press END")
