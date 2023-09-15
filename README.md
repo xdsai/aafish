@@ -21,9 +21,13 @@ Then when archeage is open, select the window name in the list that pops up. Thi
 Make sure your UI is reset to default (there is an option in the settings) and that you have the correct keybinds for this.
 
 > Stand left - Left arrow
+
 > Stand right - Right arrow
+
 > Big reel in - Up arrow
+
 > Reel in - Down arrow
-> Release - "Home"
+
+> Release - "Home" button
 
 After that, you're good to go! Press the "`" key on the keyboard to start the script, and "End" whenever you wish to end it.
