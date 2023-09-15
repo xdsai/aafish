@@ -57,11 +57,11 @@ print(f"{len(regions)}: Add new region")
 region_query = input(f"Choose a region (0/1/2/etc.) or add a new one {len(regions)}: ")
 
 if region_query == str(len(regions)):
-    print("Move your mouse to the top left corner of the desired region and press ENTER.")
+    print("Move your mouse to the top left corner of the desired region and press END")
     keyboard.wait('end')
     x1, y1 = position()
 
-    print("Move your mouse to the bottom right corner of the desired region and press ENTER.")
+    print("Move your mouse to the bottom right corner of the desired region and press END")
     keyboard.wait('end')
     x2, y2 = position()
 
