@@ -7,9 +7,9 @@ This only works on 1080p monitors, if you want to make it work on larger/smaller
 This script doesn't handle casting the bait, or picking up the fish.
 
 ### How do I use it?
-First install python and add it to PATH during the installation (I recommend at least Python 3.8 for this)
+First install python and add it to PATH during the installation (I recommend at least Python 3.8 for this).
 Then download this repository either via cloning or as a zip, and open cmd in the newly created folder.
-Then, install the requirements via
+Install the requirements via
 > python -m pip install -r requirements.txt
 
 Then run it (you might have to run the cmd as admin):
