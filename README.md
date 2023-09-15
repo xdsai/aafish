@@ -17,7 +17,7 @@ Then run it (you might have to run the cmd as admin):
 
 The script is made so that it detects how many screens you have (in case you want to fish on a screen different from your primary), and it makes you choose one on which it will look for the actions.
 Input which screen you're looking to use, this will determine the offset for the screenshot area.
-Then when archeage is open, select the window name in the list that pops up. This is so that you don't have to be tabbed on Archeage for the script to send it keystrokes to catch fish - you can do whatever you like in other windows
+Then when archeage is open, select the window name in the list that pops up. This is so that you don't have to be tabbed on Archeage for the script to send it keystrokes to catch fish - you can do whatever you like in other windows.
 Make sure your UI is reset to default (there is an option in the settings) and that you have the correct keybinds for this.
 
 > Stand left - Left arrow
